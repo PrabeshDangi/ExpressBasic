@@ -1,9 +1,18 @@
+
+const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 dotenv.config({path:'./config.env'})//Yo line require app vanda jahile agadi hunu parchha
 
 
 const app=require('./app')
-
+mongoose.connect(process.env.CONN_STR,{
+    useNewUrlParser:true
+}).then((conn)=>{
+    //console.log(conn);
+    console.log("DB Connection successful")
+}).catch((err)=>{
+    console.log("some error has occurred!!")
+})
 //console.log(process.env)
 //Creating the server
 const port=process.env.PORT||5000;
