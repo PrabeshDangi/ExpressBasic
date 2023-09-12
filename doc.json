@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Prabesh",
+        "age": 21,
+        "isMarried": false,
+        "subscription": {
+            "type": "monthly",
+            "renewalDate": {
+                "day": 30,
+                "month": "September",
+                "year": 2018
+            }
+        },
+        "address": [
+            "Libali",
+            "Bhaktapur"
+        ],
+        "purchase": [
+            {
+                "name": "Iphone",
+                "modelNo.": "Iphone 14 pro max",
+                "price": 1220
+            }
+        ]
+    },
+    {
+        "name": "Pratiksha",
+        "age": 24,
+        "isMarried": false,
+        "subscription": {
+            "type": "quaterly",
+            "renewalDate": {
+                "day": 29,
+                "month": "July",
+                "year": 2023
+            }
+        },
+        "address": [
+            "Sarra",
+            "Dang"
+        ],
+        "purchase": [
+            {
+                "name": "Samsung",
+                "modelNo.": "Samsung S23 ultra",
+                "price": 1000
+            }
+        ]
+    },
+    {
+        "name": "Sita",
+        "age": 40,
+        "isMarried": true,
+        "subscription": {
+            "type": "yearly",
+            "renewalDate": {
+                "day": 10,
+                "month": "January",
+                "year": 2022
+            }
+        },
+        "address": [
+            "Kuwait-city",
+            "Kuwait"
+        ],
+        "purchase": [
+            {
+                "name": "Iphone",
+                "modelNo.": "Iphone 13 pro max",
+                "price": 1120
+            }
+        ]
+    },
+    {
+        "name": "Bhakta",
+        "age": 60,
+        "isMarried": true,
+        "subscription": {
+            "type": "fortnightly",
+            "renewalDate": {
+                "day": 1,
+                "month": "November",
+                "year": 2021
+            }
+        },
+        "address": [
+            "Sarra",
+            "Dang"
+        ],
+        "purchase": [
+            {
+                "name": "Samsung",
+                "modelNo.": "Samsung S22 ultra",
+                "price": 1190
+            }
+        ]
+    }
+]

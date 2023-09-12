@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "MovieName": "Her",
+        "ReleaseYear": 2013,
+        "Duration": "1:50:00"
+    },
+    {
+        "id": 2,
+        "MovieName": "October",
+        "ReleaseYear": 2016,
+        "Duration": "1:55:00"
+    },
+    {
+        "id": 3,
+        "MovieName": "Gangs of Wasseypur",
+        "ReleaseYear": 2080,
+        "Duration": "2:50:00"
+    },
+    {
+        "id": 4,
+        "MovieName": "November Rain",
+        "ReleaseYear": 2080
+    }
+]
