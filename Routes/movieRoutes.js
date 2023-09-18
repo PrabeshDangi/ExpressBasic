@@ -13,5 +13,7 @@ router.route("/:id")
     .patch(moviesController.updateMovie)
     .delete(moviesController.deleteMovie);
 
+//router.route("/:name").get(moviesController.getMovieByName);
+
 
     module.exports=router;
