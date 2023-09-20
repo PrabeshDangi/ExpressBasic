@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 const dotenv=require('dotenv')
 dotenv.config({path:'./config.env'})
-require('dotenv').config();
+
 
 const app=require('./app')
 mongoose.connect(process.env.CONN_STR,{
