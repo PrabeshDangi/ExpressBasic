@@ -5,14 +5,28 @@ const Movie=require('./../Models/movieModel')
 
 exports.getAllMovies=async (req,res)=>{
     try{
-        console.log(req.query);
-        const movies= await Movie.find(req.query);
+        //console.log(req.query);
+        
+        //Advance filtering used.
+        let queryStr=JSON.stringify(req.query);
+        queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match)=>`$${match}`)
+        const queryObj=JSON.parse(queryStr);
+        //console.log(queryObj);
 
+        const movies= await Movie.find(queryObj);
+
+        //find({duration:{$gte},price:{$lte},ratings{$gte}}) yesto khalko filter object create hunchha..
+
+        //ALTERNATIVELY,
         // const movies=await Movie.find()
         //               .where('duration')
-        //               .equals(req.query.duration)
+        //               .gte(req.query.duration)
         //               .where('ratings')
-        //               .equals(req.query.ratings)
+        //               .gte(req.query.ratings)
+        //               .where('price')
+        //               .lte(req.query.price)
+                        
+        
 
 
         res.status(200).json({
