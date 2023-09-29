@@ -3,47 +3,100 @@ const Movie=require('./../Models/movieModel')
 
 
 
-exports.getAllMovies=async (req,res)=>{
-    try{
-        //console.log(req.query);
+// exports.getAllMovies=async (req,res)=>{
+//     try{
+//         //console.log(req.query);
+//         //Advance filtering used.
+//         let queryStr=JSON.stringify(req.query);
+//         queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match)=>`$${match}`)
+//         const queryObj=JSON.parse(queryStr);
+//         //console.log(queryObj);
+
+//         let query= Movie.find(queryObj); 
         
-        //Advance filtering used.
-        let queryStr=JSON.stringify(req.query);
-        queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match)=>`$${match}`)
-        const queryObj=JSON.parse(queryStr);
-        //console.log(queryObj);
+//         if(req.query.sort){
+//             query=query.sort(req.query.sort)
 
-        const movies= await Movie.find(queryObj);
+//         }
+        
+//         // if(req.query.field){
+//         //     const field=req.query.field.split(",").join(" ")
+//         //     query=query.select(field)
+//         // }
 
-        //find({duration:{$gte},price:{$lte},ratings{$gte}}) yesto khalko filter object create hunchha..
-
-        //ALTERNATIVELY,
-        // const movies=await Movie.find()
-        //               .where('duration')
-        //               .gte(req.query.duration)
-        //               .where('ratings')
-        //               .gte(req.query.ratings)
-        //               .where('price')
-        //               .lte(req.query.price)
+//         const page=req.query.page*1||1;
+//         const limit=req.query.limit*1||10;
+//         const skip=(page-1)*limit;
+//         query=query.skip(skip).limit(limit);
+//         const movies=await query;
+//         //ALTERNATIVELY,
+//         // const movies=await Movie.find()
+//         //               .where('duration')
+//         //               .gte(req.query.duration)
+//         //               .where('ratings')
+//         //               .gte(req.query.ratings)
+//         //               .where('price')
+//         //               .lte(req.query.price)
                         
         
 
 
+//         res.status(200).json({
+//             status:"success",
+//             length:movies.length,//since find method returns promise and returned value is in the form of array. so array.length..
+//             data:{
+//                 movies
+//             }
+//         })
+//     }catch(err){
+//         res.status(400).json({
+//             status:"Fail",
+//             message:err.message
+//         })
+//     }
+    
+// }
+
+exports.getAllMovies = async (req, res) => {
+    try {
+        let queryStr = JSON.stringify(req.query);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+        const queryObj = JSON.parse(queryStr);
+
+        let query = Movie.find(queryObj);
+
+        //Sorting
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(',').join(' ');
+            query = query.sort(sortBy);
+        }
+        //console.log('Query:', query);
+
+        // Pagination
+        const page = req.query.page * 1 || 1;
+        const limit = req.query.limit * 1 || 10;
+        const skip = (page - 1) * limit;
+
+        query = query.limit(limit).skip(skip);
+        const movies = await query;
+        // console.log("After breaking point.",movies)
+
         res.status(200).json({
-            status:"success",
-            length:movies.length,//since find method returns promise and returned value is in the form of array. so array.length..
-            data:{
+            status: "success",
+            length: movies.length,
+            data: {
                 movies
             }
-        })
-    }catch(err){
+        });
+    } catch (err) {
+        console.log("Error:",err);
         res.status(400).json({
-            status:"Fail",
-            message:err.message
-        })
+            status: "Fail",
+            message: err.message
+        });
     }
-    
-}
+};
+
 
 exports.getMovieById=async (req,res)=>{
     try{
