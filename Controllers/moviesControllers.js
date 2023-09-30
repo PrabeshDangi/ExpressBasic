@@ -2,61 +2,6 @@ const express=require('express');
 const Movie=require('./../Models/movieModel')
 
 
-
-// exports.getAllMovies=async (req,res)=>{
-//     try{
-//         //console.log(req.query);
-//         //Advance filtering used.
-//         let queryStr=JSON.stringify(req.query);
-//         queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match)=>`$${match}`)
-//         const queryObj=JSON.parse(queryStr);
-//         //console.log(queryObj);
-
-//         let query= Movie.find(queryObj); 
-        
-//         if(req.query.sort){
-//             query=query.sort(req.query.sort)
-
-//         }
-        
-//         // if(req.query.field){
-//         //     const field=req.query.field.split(",").join(" ")
-//         //     query=query.select(field)
-//         // }
-
-//         const page=req.query.page*1||1;
-//         const limit=req.query.limit*1||10;
-//         const skip=(page-1)*limit;
-//         query=query.skip(skip).limit(limit);
-//         const movies=await query;
-//         //ALTERNATIVELY,
-//         // const movies=await Movie.find()
-//         //               .where('duration')
-//         //               .gte(req.query.duration)
-//         //               .where('ratings')
-//         //               .gte(req.query.ratings)
-//         //               .where('price')
-//         //               .lte(req.query.price)
-                        
-        
-
-
-//         res.status(200).json({
-//             status:"success",
-//             length:movies.length,//since find method returns promise and returned value is in the form of array. so array.length..
-//             data:{
-//                 movies
-//             }
-//         })
-//     }catch(err){
-//         res.status(400).json({
-//             status:"Fail",
-//             message:err.message
-//         })
-//     }
-    
-// }
-
 exports.getAllMovies = async (req, res) => {
     try {
         let queryStr = JSON.stringify(req.query);
@@ -67,19 +12,18 @@ exports.getAllMovies = async (req, res) => {
 
         //Sorting
         if (req.query.sort) {
-            const sortBy = req.query.sort.split(',').join(' ');
+            const sortBy = req.query.sort.replace(","," ");
             query = query.sort(sortBy);
         }
         //console.log('Query:', query);
 
         // Pagination
-        const page = req.query.page * 1 || 1;
-        const limit = req.query.limit * 1 || 10;
+        const page = Number(req.query.page)|| 1;
+        const limit = Number(req.query.limit)||3;
         const skip = (page - 1) * limit;
 
-        query = query.limit(limit).skip(skip);
+        query = query.skip(skip).limit(limit);
         const movies = await query;
-        // console.log("After breaking point.",movies)
 
         res.status(200).json({
             status: "success",
@@ -115,24 +59,6 @@ exports.getMovieById=async (req,res)=>{
         })
     }
 }
-    
-    
-// exports.getMovieByName=async(req,res)=>{
-//         try{
-//             const name=await Movie.find({name:req.params.name});
-//             res.status(200).json({
-//                 status:"Success",
-//                 data:{
-//                     movie:name
-//                 }
-//             })
-//         }catch(err){
-//             res.status(400).json({
-//                 status:"Fail",
-//                 message:err.message
-//             })
-//         }
-// }
 
 exports.postMovie=async (req,res)=>{
     try{
