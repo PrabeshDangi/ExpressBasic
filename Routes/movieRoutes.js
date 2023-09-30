@@ -3,6 +3,8 @@ const moviesController=require('./../Controllers/moviesControllers')
 
 const router=express.Router();
 
+router.route("/highest-rated")
+    .get(moviesController.getHighestRatedMovie, moviesController.getAllMovies)
 
 router.route("/")
     .get(moviesController.getAllMovies)

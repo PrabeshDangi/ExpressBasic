@@ -1,6 +1,11 @@
 const express=require('express');
 const Movie=require('./../Models/movieModel')
 
+exports.getHighestRatedMovie=(req,res,next)=>{
+    req.query.limit='5'
+    req.query.sort='-ratings'
+    next();
+}
 
 exports.getAllMovies = async (req, res) => {
     try {
@@ -18,11 +23,12 @@ exports.getAllMovies = async (req, res) => {
         //console.log('Query:', query);
 
         // Pagination
-        const page = Number(req.query.page)|| 1;
-        const limit = Number(req.query.limit)||3;
-        const skip = (page - 1) * limit;
+            const page = Number(req.query.page)|| 1;
+            const limit = Number(req.query.limit)||10;
+            const skip = (page - 1) * limit;
+    
+            query = query.skip(skip).limit(limit);
 
-        query = query.skip(skip).limit(limit);
         const movies = await query;
 
         res.status(200).json({
